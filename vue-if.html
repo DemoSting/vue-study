@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-if控制流程</title>
+</head>
+<body>
+    <div class="app">
+        <div v-if="role == 'admin'">
+            您好
+        </div>
+        <div v-else-if="role == 'nihao'">
+            我好
+        </div>
+    </div>
+</body>
+<script src="lib/vue.js"></script>
+<script src="js/v-if.js"></script>
+
+</html>

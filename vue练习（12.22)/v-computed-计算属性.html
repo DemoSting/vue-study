@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue的计算属性</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            数学：<input type="text" v-model="math">{{math}}
+        </div>
+        <div>
+            语文：<input type="text" v-model="yuwen">{{yuwen}}
+        </div>
+        <div>
+            英语：<input type="text" v-model="en">{{en}}
+        </div>
+        <div>
+            总分：
+            <span>{{sum}}</span>
+        </div>
+        <div>
+            平均分：
+            <span>{{avg}}</span>
+        </div>
+    </div>
+</body>
+<script src="lib/vue.js"></script>
+<script src="js/v-computed-计算属性.js"></script>
+</html>

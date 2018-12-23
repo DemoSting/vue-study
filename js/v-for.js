@@ -1,0 +1,23 @@
+new Vue({
+    el:'#app',
+    data:{
+        goodsList:[
+            {
+                'name':'xiaohua',
+                'price':12
+            },
+            {
+                'name':'xiaolei',
+                'price':16
+            },
+            {
+                'name':'xiaomi',
+                'price':9
+            },
+            {
+                'name':'xiaoyong',
+                'price':20
+            },
+        ]
+    }
+});

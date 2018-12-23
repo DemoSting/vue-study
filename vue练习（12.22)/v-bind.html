@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-bind练习</title>
+</head>
+<style>
+    .check{
+        background-color: #67b168;
+    }
+</style>
+<body>
+    <div id="app">
+        <a v-bind:href="url">百度</a>
+        <div :class="{'check':is_default}">
+            <button>haha</button>
+        </div>
+    </div>
+</body>
+<script src="lib/vue.js"></script>
+<script src="js/v-bind.js"></script>
+</html>

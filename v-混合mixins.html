@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue的mixins</title>
+</head>
+<body>
+    <div id="mix">
+        <mixins></mixins>
+        <mixins2></mixins2>
+    </div>
+
+    <!--组件模板-->
+    <template id="mixins-tmp">
+        <div>
+            <button @click="toggle">点我</button>
+            <div v-if="visible">
+                nihaowohaodajiahao
+            </div>
+        </div>
+    </template>
+    <template id="mixins-tmp2">
+        <div>
+            <button @mouseenter="show" @mouseleave="hide">点我</button>
+            <div v-if="visible">
+                nihaowohaodajiahao
+            </div>
+        </div>
+    </template>
+</body>
+<script src="lib/vue.js"></script>
+<script src="js/v-mixins.js"></script>
+</html>

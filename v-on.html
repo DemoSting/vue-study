@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="span">
+    <button v-on="{mouseenter:onmouseenter,mouseout:onmouseout}" v-on:click="onclick">点我</button>
+    <form v-on:keyup.enter="onEnter()" v-on:submit.prevent="submit()">
+        <input type="text">
+        <button>电他</button>
+    </form>
+</div>
+</body>
+<script src="lib/vue.js"></script>
+<script src="js/v-on.js"></script>
+</html>

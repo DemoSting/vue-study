@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak v-text v-html练习</title>
+</head>
+<style>
+    /*属性选择器*/
+    [v-cloak]{
+        display: none;
+    }
+</style>
+<body>
+    <div class="app">
+        <!--解决闪烁问题-->
+        <p v-cloak>{{ msg }}</p>
+        <p v-text="msg"></p>
+        <!--会把内容当成html-->
+        <div v-html="msg1"></div>
+        <!--v-bind绑定属性，可以简写为英文:-->
+        <!--v-on绑定事件-->
+        <input type="submit" v-bind:title="mytitle" v-on:click="show">
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.6.0-beta.3/vue.min.js"></script>
+<script>
+    var app = new Vue({
+        el:'.app',
+        data:{
+            msg:123,
+            msg1:'<h2>haha</h2>&copy;&lt;&gt;&amp;',
+            mytitle:'haha'
+        },
+        methods:{
+            show:function () {
+                alert('haha');
+            }
+        }
+    })
+</script>
+</html>

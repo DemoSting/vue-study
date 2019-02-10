@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跑马灯效果</title>
+</head>
+<body>
+    <div class="app">
+        <input type="submit" value="浪起来" @click="show">
+        <input type="submit" value="低调" @click="stop">
+        <h4>{{ msg }}</h4>
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.6.0-beta.3/vue.min.js"></script>
+<script>
+    var vm = new Vue({
+        el:'.app',
+        data:{
+            msg:'大家新年好！',
+            intervalId:null
+        },
+        methods:{
+
+            //打开跑马灯函数
+            show() {
+                if (this.intervalId !== null) return null;
+                this.intervalId = setInterval( () => {
+                    //箭头函数内部的this指代的和外部一样的
+                    var start = this.msg.substring(0, 1);
+                    var end = this.msg.substring(1);
+                    this.msg = end + start;
+                    console.log(this.msg);
+                },400)
+            },
+
+            //关闭跑马灯函数
+            stop() {
+                clearInterval(this.intervalId);
+                this.intervalId = null
+            }
+        }
+    })
+</script>
+</html>

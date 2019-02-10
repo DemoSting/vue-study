@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简易计算器实现</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.0-beta.3/vue.min.js"></script>
+<body>
+<div class="app">
+    <input type="text" v-model="num1">
+    <select v-model="opt">
+        <option>+</option>
+        <option>-</option>
+        <option>*</option>
+        <option>/</option>
+    </select>
+    <input type="text" v-model="num2">
+    <input type="submit" @click="cal" value="计算">
+    <input type="text" v-model="sum">
+</div>
+</body>
+<script>
+    var vm = new Vue({
+        el:'.app',
+        data:{
+            num1:0,
+            num2:0,
+            opt:'-',
+            sum:0,
+        },
+        methods:{
+            cal(){
+                switch(this.opt){
+                    case '+':
+                        this.sum = parseInt(this.num1) + parseInt(this.num2);
+                        break;
+                    case '-':
+                        this.sum = parseInt(this.num1) - parseInt(this.num2);
+                        break;
+                    case '*':
+                        this.sum = parseInt(this.num1) * parseInt(this.num2);
+                        break;
+                    case '/':
+                        this.sum = parseInt(this.num1) / parseInt(this.num2);
+                        break;
+                }
+            }
+        }
+    })
+</script>
+</html>

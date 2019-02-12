@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>品牌管理</title>
+</head>
+<body>
+    <div class="app">
+        <div class="panel panel-primary">
+            <div class="panel-heading panel-primary">
+                <h3 class="panel-title">添加品牌</h3>
+            </div>
+            <div class="panel-body form-inline">
+                <lable>
+                    ID:
+                    <input type="text" name="id" class="form-control" v-model="id">
+                </lable>
+                <lable>
+                    CarBrand:
+                    <input type="text" name="brand" class="form-control" v-model="brand">
+                </lable>
+                <lable>
+                    <input class="btn btn-primary" type="button" value="添加" @click="add">
+                </lable>
+                <lable>
+                    搜索关键字:
+                    <input type="text" name="search" v-model="keywords" class="form-control">
+                </lable>
+            </div>
+            <div class="panel-body"></div>
+        </div>
+        <br>
+        <table class="table table-bordered table-hover table-stripted">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cname</th>
+                <th>Ctime</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="item in search(keywords)" :key="item.id">
+                <td>{{item.id}}</td>
+                <td>{{item.cname}}</td>
+                <td>{{item.ctime | dateFormate('')}}</td>
+                <td>
+                    <!--加小括号就可以传参了。-->
+                    <a href="#" @click.prevent="del(item.id)">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.6.0-beta.3/vue.min.js"></script>
+<script>
+
+    //这是一个全局过滤器，所有的vm实例都共享
+    //使用过滤器格式化时间，过滤器只能在差值表达式和v-bind表达式里面使用。
+    Vue.filter('dateFormate',function (dateStr,formate) {
+
+        //格式化日期函数
+        //var dateStr = new Date(date);
+        //console.log(typeof dateStr);
+        var y = dateStr.getFullYear();
+        //padStart方法，在还没有两位的时候，在字符串前面添加一个0
+        var m = (dateStr.getMonth() + 1).toString().padStart(2,'0');
+        var d = (dateStr.getDay()).toString().padStart(2,'0');
+
+        if(formate && formate.toLowerCase() === 'yyyy-mm-dd'){
+            return `${y}-${m}-${d}`
+        }else{
+            var h = (dateStr.getHours()).toString().padStart(2,'0');
+            var mn = (dateStr.getMinutes()).toString().padStart(2,'0');
+            var s = (dateStr.getMinutes()).toString().padStart(2,'0');
+            return `${y}-${m}-${d} ${h}-${mn}-${s}`
+        }
+    });
+    
+    var vm = new Vue({
+        el:'.app',
+        data:{
+            id:'',
+            brand:'',
+            keywords:'',
+            list:[
+                {id:1,cname:'本次',ctime:new Date()},
+                {id:2,cname:'宝马',ctime:new Date()}
+            ]
+        },
+        methods:{
+            add(){
+                var newItem = {id:this.id,cname:this.brand,ctime:new Date()};
+                this.list.push(newItem)
+            },
+            del(id){
+                //根据id删除数据
+                /*
+                  some() 方法用于检测数组中的元素是否满足指定条件（函数提供）。
+                  some() 方法会依次执行数组的每个元素：
+                  如果有一个元素满足条件，则表达式返回true , 剩余的元素不会再执行检测。
+                  如果没有满足条件的元素，则返回false。
+                  */
+                this.list.some((item,i) => {
+                    if(item.id == id){
+                        this.list.splice(i,1);
+                        return true;
+                    }
+                })
+            },
+            search(keywords){
+//                var newList = [];
+                /*this.list.forEach(item => {
+                    //这里之前报错TypeError: Cannot read property 'indexOf' of undefined
+                    //因为cname写成name了。
+                    if(item.cname.indexOf(keywords) != -1){
+                        newList.push(item);
+                    }
+                });
+                return newList;*/
+
+                var newList = this.list.filter(item => {
+                    if(item.cname.includes(keywords)){
+                        return item;
+                    }
+                });
+                return newList;
+            },
+        },
+        filter:{
+            //定义私有过滤器，如果私有过滤器和全局和全局过滤器名称一致，就优先调用私有过滤器。
+        }
+    })
+</script>
+</html>

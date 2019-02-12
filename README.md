@@ -1,2 +1,2 @@
 # vue-study
-vue学习
+vue基础知识学习

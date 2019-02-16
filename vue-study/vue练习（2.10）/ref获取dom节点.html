@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ref获取dom节点</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.3/vue.min.js"></script>
+<body>
+    <div id="app">
+        <input type="button" value="获取元素" @click="getElement">
+
+        <!--通过ref来引用dom对象，也可以引用组件-->
+        <div ref="mh3">haaaaaaaaaaaa</div>
+        <com1  ref="mylogin"></com1>
+
+    </div>
+    <template id="temp">
+        <div>
+            <div>你好啊！</div>
+        </div>
+    </template>
+</body>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        methods:{
+            getElement(){
+//                console.log(this.$refs.mh3.innerText);
+                //通过给组件加ref，可以引用到组件，获取里面的方法和数据
+//                console.log(this.$refs.mylogin.msg);
+
+                //调用组件方法直接加上方法：show()
+                this.$refs.mylogin.show();
+            }
+        },
+        components:{
+            com1:{
+                template:'#temp',
+                data:function () {
+                    return {
+                        msg:'调用组件'
+                    }
+                },
+                methods:{
+                    show(){
+                        console.log('组件方法！')
+                    }
+                }
+
+            },
+
+        }
+    })
+</script>
+</html>

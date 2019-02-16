@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="span">
+        <!--m-model在单选框的应用-->
+        <label>
+            男
+            <input type="radio" v-model="sex" value="man">
+        </label>
+        <label>
+            女
+            <input type="radio" v-model="sex" value="female">
+        </label>
+        {{sex}}
+        <br>
+        <!--m-model在复选框的应用-->
+        <label>
+            nan
+            <input v-model="sex2" value="man" type="checkbox">
+        </label>
+        <label>
+            nv
+            <input v-model="sex2" value="female" type="checkbox">
+        </label>
+        {{sex2}}
+        <!--m-model在textarea的应用-->
+        <br>
+        <label>
+            <textarea v-model="text" cols="30" rows="10"></textarea>
+        </label>
+        <!--m-model在select的应用-->
+        <br>
+        <label>
+            <select v-model="from">
+                <option value="1">贝贝山</option>
+                <option value="2">王花花</option>
+            </select>
+        </label>
+        {{from}}
+        <!--m-model在select多选中的应用-->
+        <select v-model="multiple" multiple>
+            <option value="1">贝贝山</option>
+            <option value="2">王花花</option>
+        </select>
+        {{multiple}}
+    </div>
+
+</body>
+<script src="lib/vue.js"></script>
+<script src="js/v-model.js"></script>
+</html>

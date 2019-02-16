@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-resource</title>
+</head>
+<body>
+    <div class="app">
+        <input type="button" value="get请求" @click="get()">
+        <input type="button" value="post请求">
+        <input type="button" value="jsonp请求">
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.6.3/vue.min.js"></script>
+<script src="./v-res.js"></script>
+<script>
+    var vm = new Vue({
+        el:'.app',
+        data:{
+
+        },
+        methods:{
+
+            //success的回调函数是必须写的,使用vue-resource实现三个请求。
+            get:function () {
+                this.$http.get('https://getman.cn/echo').then(result => {
+                    console.log(result.body);
+                })
+            },
+
+            //error的回调函数可以不写
+            post:function () {
+                this.$http.post('https://getman.cn/echo',{},{emulateJSON:true}).then(function (result) {
+                    console.log(result.body);
+                })
+            },
+
+            jsonp:function () {
+                this.$http.jsonp('https://getman.cn/echo').then(result => {
+                    console.log(result.body);
+                })
+            }
+        }
+    })
+</script>
+</html>

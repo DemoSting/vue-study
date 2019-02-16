@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <title>评论发表组件实战</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.0-beta.3/vue.min.js"></script>
+<body>
+<div class="app">
+    <template id="haha">
+        <div class="form-group">
+            <label>用户名</label>
+            <input type="text" class="form-control" placeholder="user" v-model="user">
+
+            <label>内容</label>
+            <textarea name="content" class="form-control" v-model="content"></textarea>
+            <br>
+            <input type="button" class="btn btn-info" value="提交评论" @click="postMsg" >
+        </div>
+    </template>
+
+    <cmt-box @func="updateList"></cmt-box>
+
+    <ul class="list-group">
+        <li class="list-group-item" v-for="item in list">
+            {{item.content}}
+            <span class="label label-primary">{{item.user}}</span>
+        </li>
+    </ul>
+</div>
+</body>
+<script>
+    var vm = new Vue({
+        el:'.app',
+        data:{
+            list:[
+//                {content:'我是好青年！',user:'百度'},
+//                {content:'我是坏青年！',user:'阿里'},
+//                {content:'我是不好不坏青年！',user:'腾讯'}
+            ]
+        },
+        methods:{
+            updateList(){
+                var list = JSON.parse(localStorage.getItem('comts' || '[]'));
+                this.list = list;
+            }
+        },
+
+        component:{
+            'cmt-box':{
+                template:'#haha',
+                data(){
+                    return {
+                        user:'',
+                        content:''
+                    }
+                },
+                methods:{
+                    postMsg(){
+                        //1:将comment放到localstorage 方法：localstorage.setItem()
+                        //2:list 是 一个保存comment对象的列表，需要转成字符串的形式存入localstorage里面：JSON.stringfy(list)
+                        //3:在保存到localstorage里面之前，需要把之前的评论的拿出来，转成数组，JSON.parse
+                        //4:向列表里面添加新的内容，再转成字符串保存到localstorage里面。
+                        //5:最后将user和content清空。
+
+                        var comment = {id:Date.now(),'user':this.user,'content':this.content};
+                        var list = JSON.parse(localStorage.getItem('comts') || '[]');
+                        list.unshift(comment);
+                        localStorage.setItem('comts',JSON.stringify(list));
+                        this.user = this.content = '';
+                        this.$emit('func')
+                    }
+                }
+            }
+        }
+    })
+</script>
+</html>

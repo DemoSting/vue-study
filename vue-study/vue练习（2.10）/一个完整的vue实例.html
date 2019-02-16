@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>一个完整的vue实例</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.0-beta.3/vue.min.js"></script>
+
+<body>
+    <div class="app1">
+        <login></login>
+    </div>
+    <template id="temp1">
+        <div>
+            <input type="button" @click="increatment" value="+1">
+            <p> {{msg}}</p>
+        </div>
+    </template>
+</body>
+<script>
+    var vm = new Vue({
+        el:'.app1',
+        data:{},
+        methods:{},
+        filters:{},
+        directives:{},
+
+        //这里定义私有组件
+        components:{
+            login:{
+                template:'#temp1',
+
+                //组件中也可以有data，但是必须是一个方法。而且必须返回一个对象。
+                data:function () {
+                    //在模板里面使用插值表达式来引用msg
+                    return {
+                        msg:0
+                    }
+                },
+                methods:{
+                    increatment(){
+                        this.msg ++;
+                    }
+                }
+            }
+        },
+
+        //vue实例的八个生命周期函数
+        beforeCreate(){},
+        created(){},
+        beforeMount(){},
+        mounted(){},
+        beforeUpdate(){},
+        updated(){},
+        beforDestroy(){},
+        destroyed(){}
+
+    })
+</script>
+</html>

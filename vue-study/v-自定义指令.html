@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue自定义组件</title>
+</head>
+
+<style>
+    div{
+        width: 400px;
+        height: 100px;
+        background-color: #67b168;
+        margin-top: 10px;
+    }
+</style>
+<body>
+<div id="app">
+    <div v-pin.bottom.left="card1.binded">
+        <button @click="card1.binded = !card1.binded">固定/解除</button>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    </div>
+    <div v-pin="card2.binded">
+        <button @click="card2.binded = !card2.binded">固定/解除</button>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+    </div>
+</div>
+</body>
+<script src="lib/vue.js"></script>
+<script src="js/v-自定义指令.js"></script>
+</html>

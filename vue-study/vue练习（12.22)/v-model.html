@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <!--懒加载-->
+        <input type="text" v-model.lazy="name">{{name}}<br>
+        <!--去除输入的字符串-->
+        <input type="text" v-model.trim="haha">{{haha}}<br>
+        <input type="text" v-model.number="xixi">{{xixi}}<br>
+
+        <!--multiple多选-->
+        <select v-model="select" multiple>
+            <option value="1">王家沟</option>
+            <br>
+            <option value="2">喜洋洋</option>
+            <br>
+            <option value="3">背背山</option>
+        </select>
+        {{select}}
+    </div>
+</body>
+<script src="lib/vue.js"></script>
+<script src="js/v-model.js"></script>
+</html>

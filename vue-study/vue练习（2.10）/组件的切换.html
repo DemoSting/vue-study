@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件切换-包含动画</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.0-beta.3/vue.min.js"></script>
+<style>
+    .v-enter,
+    .v-leave-to{
+        /*opacity: 0;*/
+        transform: translateX(80px);
+    }
+
+    .v-enter-active,
+    .v-leave-active{
+        transition: all 1s ease;
+    }
+</style>
+<body>
+<div class="app1">
+    <a href="#" @click="temp='login'">登陆</a>
+    <a href="#" @click="temp='register'">注册</a>
+
+    <!--这个标签可以用来控制具体显示那个组件-->
+    <!--temp是一个变量，a标签用来修改变量-->
+
+    <!--这里的out-in的目的是让开始的选项先移动结束，后面的选项才进入-->
+    <transition mode="out-in">
+        <component :is="temp"></component>
+    </transition>
+</div>
+<template id="temp1">
+    <div>
+        <p> 登陆页面 </p>
+    </div>
+</template>
+
+<template id="temp2">
+    <div>
+        <p> 注册页面</p>
+    </div>
+</template>
+</body>
+<script>
+    var vm = new Vue({
+        el:'.app1',
+        data:{
+            temp:''
+        },
+        methods:{},
+        filters:{},
+        directives:{},
+
+        //这里定义私有组件
+        components:{
+            login:{
+                template:'#temp1',
+
+                //组件中也可以有data，但是必须是一个方法。而且必须返回一个对象。
+                data:function () {
+                    //在模板里面使用插值表达式来引用msg
+                    return {}
+                },
+            },
+            register:{
+                template:'#temp2',
+            }
+        },
+
+        //vue实例的八个生命周期函数
+        beforeCreate(){},
+        created(){},
+        beforeMount(){},
+        mounted(){},
+        beforeUpdate(){},
+        updated(){},
+        beforDestroy(){},
+        destroyed(){}
+
+    })
+</script>
+</html>

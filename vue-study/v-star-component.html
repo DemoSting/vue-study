@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>点赞组件练习</title>
+</head>
+<style>
+    .liked{
+        background-color: #67b168;
+    }
+    .hated{
+        background-color: #2b542c;
+    }
+</style>
+<body>
+
+    <!--点赞组件-->
+    <div class="app">
+        <star></star>
+    </div>
+
+    <!--可以将template的代码写在这里，然后在js里面调用-->
+    <template id="star-component-tmp">
+        <button :class="{liked:clicked}" @click="toggle_star()">
+            star {{star}}
+        </button>
+    </template>
+
+    <!--拉黑组件-->
+    <div class="vue">
+        <hate></hate>
+    </div>
+
+    <template id="hate-component-tmp">
+        <button :class="{hated:clicked}" @click="toggle_hate()">
+            hate {{hate}}
+        </button>
+    </template>
+</body>
+<script src="lib/vue.js"></script>
+<script src="js/v-star-component.js"></script>
+</html>

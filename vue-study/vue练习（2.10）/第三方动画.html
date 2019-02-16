@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue第三方动画使用</title>
+    <link rel="stylesheet" href="./lib/animate.css">
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.0-beta.3/vue.min.js"></script>
+
+
+<body>
+    <div class="app">
+        <input type="button" value="toggle" @click="toggle=!toggle">
+
+        <!--使用第三方的动画时候，需要加入enter-active-class属性-->
+        <transition enter-active-class="animated bounceInLeft" leave-active-class="animated bounceInRight">
+            <p v-if="toggle">第三方动画</p>
+        </transition>
+    </div>
+</body>
+
+
+<script>
+    var vm = new Vue({
+        el:'.app',
+        data:{
+            toggle:false
+        }
+    })
+</script>
+</html>

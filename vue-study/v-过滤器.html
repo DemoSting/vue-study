@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue过滤器</title>
+</head>
+<body>
+    <div id="app">
+
+        <input type="text" v-model="length">
+        {{length | meter('千米')}}
+        <br>
+        <input type="text" v-model="price">
+        {{price | currency('usd')}}
+    </div>
+</body>
+<script src="lib/vue.js"></script>
+<script src="js/v-过滤器.js"></script>
+</html>

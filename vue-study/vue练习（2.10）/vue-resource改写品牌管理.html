@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>品牌管理</title>
+</head>
+<body>
+<div class="app">
+    <div class="panel panel-primary">
+        <div class="panel-heading panel-primary">
+            <h3 class="panel-title">添加品牌</h3>
+        </div>
+        <div class="panel-body form-inline">
+            <lable>
+                ID:
+                <input type="text" name="id" class="form-control" v-model="id">
+            </lable>
+            <lable>
+                CarBrand:
+                <input type="text" name="brand" class="form-control" v-model="brand">
+            </lable>
+            <lable>
+                <input class="btn btn-primary" type="button" value="添加">
+            </lable>
+            <lable>
+                搜索关键字:
+                <input type="text" name="search" v-model="keywords" class="form-control">
+            </lable>
+        </div>
+        <div class="panel-body"></div>
+    </div>
+    <br>
+    <table class="table table-bordered table-hover table-stripted">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Cname</th>
+            <th>Ctime</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in list" :key="item.id">
+            <td>{{item.id}}</td>
+            <td>{{item.cname}}</td>
+            <td>{{item.ctime | dateFormate('')}}</td>
+            <td>
+                <!--加小括号就可以传参了。-->
+                <a href="#" @click.prevent="del(item.id)">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.6.0-beta.3/vue.min.js"></script>
+<script src="./v-res.js"></script>
+<script>
+
+    //通过全局配置了请求数据接口的根域名，每次单独发起http请求的时候，请求的url路径不能加/。
+    //以后修改域名就可以直接修改这里。
+    Vue.http.options.root = 'http://vue.study.io/';
+
+    //全局启用emulateJSON,后面post里面就可以不选择了。
+    Vue.http.options.emulateJSON = true;
+
+
+    var vm = new Vue({
+        el:'.app',
+        data:{
+            id:'',
+            brand:'',
+            keywords:'',
+            list:[
+                {id:1,cname:'本次',ctime:new Date()},
+                {id:2,cname:'宝马',ctime:new Date()}
+            ]
+        },
+
+        //生命周期钩子函数，此时可以访问methods和data，但是数据还没有被挂载。
+        created(){
+            this.getList();
+        },
+        methods:{
+            //添加品牌
+            add(){
+                this.$http.post('url',{id:this.id,cname:this.brand,ctime:new Date()},{emulateJSON:true}).then(result=>{
+                    var result = result.body;
+                    if(result.status === 0){
+                        this.getList();
+                        this.brand = '';
+                    }else{
+                        console.log('请求失败！');
+                    }
+                });
+            },
+            del(id){
+                this.$http.post('url' + id).then(result => {
+                    if(result.body.status === 0){
+                        this.getList();
+                    }else{
+                        console.log("删除失败！");
+                    }
+                })
+            },
+            getList(){
+                var _this = this;
+                this.$http.get('https://getman.cn/echo').then(function (result) {
+                    var result = result.body;
+                    //请求接口数据,根据status判断是否请求成功！
+                    if(result.status === 0){
+                        _this.list = result.message;
+                    }else{
+                        alert("请求失败！");
+                    }
+                })
+            }
+        },
+
+        filter:{
+            //定义私有过滤器，如果私有过滤器和全局和全局过滤器名称一致，就优先调用私有过滤器。
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列表添加动画</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.0-beta.3/vue.min.js"></script>
+
+<style>
+
+    li{
+        height: 50px;
+        width: 100%;
+        background-color: white;
+        border: 1px solid gray;
+        margin-top: 20px;
+    }
+
+    li:hover{
+        background-color: #67b168;
+    }
+    .v-enter,
+    .v-leave-to{
+        transform: translateY(80px);
+    }
+
+    .v-enter-active,
+    .v-leave-active{
+        transition:all 1.0s ease;
+    }
+
+    /*在动画过程中也实现渐变*/
+    /*absolute默认最小值*/
+    /*固定写法记住他*/
+    .v-move{
+        transition: all 1.0s ease;
+    }
+
+    .v-leave-active{
+        position: absolute;
+    }
+</style>
+
+<body>
+    <div class="app">
+        id:
+        <input type="text" v-model="id">
+        name:
+        <input type="text" v-model="name">
+        <input type="button" value="添加" @click="add">
+
+        <!--<ul>-->
+            <!--当使用for的时候，需要使用transition-group标签-->
+            <!--appear可以实现页面入场时候的效果-->
+            <!--<transiton-group>会被渲染成一个span,可以通过tag属性指定为ul，这时就可以省略之前写的ul-->
+        <transition-group appear tag="ul">
+            <li v-for="(item,id) in list" :key="item.id" @click="del(id)">
+                {{item.id}} ------ {{item.name}}
+            </li>
+        </transition-group>
+        <!--</ul>-->
+    </div>
+</body>
+
+<script>
+    var vm = new Vue({
+        el:'.app',
+        data:{
+            id:'',
+            name:'',
+            list:[
+                {id:1,name:'haha'},
+                {id:2,name:'xixi'},
+                {id:3,name:'heihei'}
+            ]
+        },
+        methods:{
+            add(){
+                var new_list = {id:this.id,name:this.name};
+                this.list.push(new_list);
+            },
+            del(id){
+                //删除列表中的id项
+                this.list.splice(id,1);
+            }
+        }
+    })
+</script>
+</html>

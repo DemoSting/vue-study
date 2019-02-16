@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-组件通信-父子通信</title>
+</head>
+<body>
+    <div id="app">
+        <user username="wanghuahua"></user>
+    </div>
+    <template id="v-tmp">
+        <div>
+            <a :href="'/user/' + username">{{username}}</a>
+        </div>
+    </template>
+</body>
+<script src="lib/vue.js"></script>
+<script src="js/v-组件通信-父子通信.js"></script>
+</html>

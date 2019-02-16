@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>父子组件传值v-bind</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.0-beta.3/vue.min.js"></script>
+<body>
+    <div class="app">
+        <!--//这里不需要传参-->
+        <com1 v-bind:parentmsg="msg" @fathmsg="show"></com1>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el:'.app',
+        data:{
+            msg:'成功！'
+        },
+        methods:{
+            show(data){
+                console.log('调用父组件显示：' + data);
+            }
+        },
+        components:{
+            com1:{
+                template:'<div><p>组件com1</p><p>{{parentmsg}}</p><input type="button" value="子组件" @click="showSon"></div>',
+
+                //子组件data的数据是组件自己私有的，并不是父组件传过来的。
+                //子组件data的数据是可读可写的，而props的数据只能读。
+
+                data:function () {
+                    return {
+                        msg1:'子组件的参数',
+                    }
+                },
+
+                //props是列表，父组件传过来的数据必须在这里先定义才能在template里面使用。
+                //props里面的数据只可读，不可修改。
+
+                props:['parentmsg'],
+
+
+                filters:{},
+                directives:{},
+                components:{},
+                methods:{
+                    showSon(){
+//                        console.log('haha')
+                        //需要参数直接在这里写，不用在父组件里面写。
+                        this.$emit('fathmsg',this.msg1);
+                    }
+                }
+            }
+        }
+    })
+</script>
+</html>

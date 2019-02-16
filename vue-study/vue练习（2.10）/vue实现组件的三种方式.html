@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue实现组件的三种方式</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.0-beta.3/vue.min.js"></script>
+<body>
+    <div id="app">
+        <!--组件1-->
+        <my-com></my-com>
+        <!--组件2-->
+        <mycom2></mycom2>
+        <!--组件3-->
+        <mycom3></mycom3>
+    </div>
+
+    <!--在template里面写模板-->
+    <template id="temp1">
+        <div>
+            <h1>hahahahahaha</h1>
+        </div>
+    </template>
+</body>
+
+<script>
+    //第一种方式：
+    //第一步：使用extend创建组件模板对象
+    var com1 = Vue.extend({
+        template:`<div>这是一个extend方式创建的vue组件！</div>`
+    });
+
+    //第二步：如果组件应用了驼峰命名法，在html里面使用组件的时候要将大写字母小写且用-连接。
+    Vue.component('myCom',com1);
+
+
+    //第二种方式：
+    Vue.component('mycom2',{
+        template:`<div>
+            <h3>这是组件二</h3>
+            </div>`
+    });
+
+    //第三种方式
+    Vue.component('mycom3',{
+        template:'#temp1'
+    });
+
+    var vm = new Vue({
+        el:'#app',
+        data:{
+
+        }
+    })
+</script>
+</html>

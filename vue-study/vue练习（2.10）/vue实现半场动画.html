@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue实现半场动画</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.0-beta.3/vue.min.js"></script>
+<style>
+    .ball{
+        width: 50px;
+        height:50px;
+        border-radius: 50%;
+        background-color: #2b542c;
+    }
+</style>
+<body>
+    <div class="app">
+        <input type="button" value="开启动画" @click="toggle=!toggle">
+        <!--vue动画入场对应的生命周期-->
+        <!--记住这里的三个周期的函数不能加括号，否者会出现报错-->
+        <transition
+            @befor-enter="beforEnter"
+            @enter="enter"
+            @after-enter="afterEnter"
+        >
+            <div class="ball" v-show="toggle"></div>
+        </transition>
+    </div>
+</body>
+
+<script>
+    var vm = new Vue({
+        el:'.app',
+        data:{
+            toggle:false
+        },
+        methods:{
+            beforEnter(el){
+                el.style.transform="translate(0,0)"
+            },
+            enter(el,done){
+
+                //记住这里必须要加offsetWidth，否者没有动画。
+
+                el.offsetWidth;
+                el.style.transform="translate(150px,150px)";
+                el.style.transition="all 1s ease";
+
+                //这个done()实际上就是调用afterEnter方法。在动画结束时候没有停顿。
+                done();
+            },
+            afterEnter(el){
+                //动画结束之后的生命周期
+                //this.toggle = !this.toggle;
+
+                //这里不能直接修改opacity
+                el.style.opacity = 0.5; //第二次点击的时候小球会消失。
+                //vue将动画分成了两个部分
+                //第一个部分是toggle 由 false 变成 true的时候
+                //第二部分，即再次点击按钮时：是toggle 由 true 变为 false.
+                //this.toggle = !this.toggle;该代码直接将toggle true 改为false，就跳过了第二部，所以动画连贯。
+            }
+        }
+    })
+
+</script>
+</html>

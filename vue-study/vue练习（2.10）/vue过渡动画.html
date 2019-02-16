@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue的过渡动画</title>
+</head>
+<script src="https://cdn.bootcss.com/vue/2.6.0-beta.3/vue.min.js"></script>
+<style>
+
+    /*元素开始进入和离开结束的两个时间点*/
+    .v-enter,
+    .v-leave-to{
+        opacity:0;
+        /*过度动画*/
+        transform:translateX(150px);
+    }
+
+    /*元素进入和离开的两个时间段*/
+    .v-enter-active,
+    .v-leave-active{
+        transition: all 0.8s ease;
+    }
+
+
+    .my-enter,
+    .my-leave-to{
+        opacity:0;
+        /*过度动画*/
+        transform:translateY(150px);
+    }
+
+    /*元素进入和离开的两个时间段*/
+    .my-enter-active,
+    .my-leave-active{
+        transition: all 0.8s ease;
+    }
+</style>
+<body>
+    <div class="app">
+        <input  type="button" value="toggle" @click="toggle=!toggle">
+
+        <!--vue实现动画需要transition标签-->
+        <transition>
+            <p v-if="toggle">vue动画</p>
+        </transition>
+
+        <hr>
+
+        <input  type="button" value="toggle" @click="toggle=!toggle">
+
+        <!--vue实现动画需要transition标签-->
+        <!--定义name属性可以区分不同元素使用不同的动画，此时v-前缀改成my- -->
+        <transition name="my">
+            <p v-if="toggle">vue动画</p>
+        </transition>
+    </div>
+</body>
+
+<script>
+    var vm = new Vue({
+        el:'.app',
+        data:{
+            toggle:false,
+            toggle2:false
+        },
+
+    })
+</script>
+</html>

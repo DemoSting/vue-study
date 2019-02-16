@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue插槽</title>
+</head>
+<style>
+    .panel {
+        width: 300px;
+        border: 1px solid grey;
+        margin-bottom: 15px;
+    }
+
+    .panel > * {
+        padding: 10px;
+    }
+
+    .header {
+        height: 50px;
+        line-height: 50px;
+        border-bottom: 1px solid grey;
+    }
+
+    .footer {
+        height: 50px;
+        line-height: 50px;
+        border-top:1px solid grey;
+    }
+
+</style>
+<body>
+    <div id = 'app'>
+        <panel>
+            <div slot="title">haha</div>
+            <div slot="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam amet consequuntur debitis dolor eligendi eum facilis illum iste nam necessitatibus perferendis provident, qui, quo repellendus similique sint tempore totam vel.</div>
+            <div slot="footer">更多信息</div>
+        </panel>
+        <panel>
+            <div slot="title">Nihao</div>
+            <div slot="content">sadfffasdfasdfsadf</div>
+            <div slot="footer">更多信息</div>
+        </panel>
+    </div>
+    <template id="panel-tmp">
+        <div class="panel">
+            <div class="header">
+                <slot name="title"></slot>
+            </div>
+            <div class="content">
+                <slot name="content"></slot>
+            </div>
+            <div class="footer">
+                <slot name="footer"></slot>
+            </div>
+        </div>
+    </template>
+</body>
+<script src="lib/vue.js"></script>
+<script src="js/v-slots.js"></script>
+</html>

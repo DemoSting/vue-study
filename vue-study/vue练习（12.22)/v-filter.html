@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue-filter过滤器</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model.number="price">
+        {{price | food_price()}}
+    </div>
+</body>
+<script src="lib/vue.js"></script>
+<script src="js/v-filter.js"></script>
+</html>
